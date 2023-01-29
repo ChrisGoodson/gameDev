@@ -1,155 +1,181 @@
+// initialize variables
+let p = false; // flag to check if the game is currently being played
+let s; // variable to keep track of the score
+let tr; // variable to keep track of the time remaining
+let ca; // variable to store the correct answer
+let cb; // variable to store the index of the HTML element containing the correct answer
+let ic; // variable to store the incorrect answer
+let i; // loop variable
 
-// Set up initial values for the game
-let timeTaken = 0, score = 0, totalQuestions = 10, currentQuestion, timeRemaining, updateTimeInterval;
-
-// Generate a new question based on the difficulty level selected by the player
-generateQuestion = () => {
-// Get the difficulty level value from the HTML select element
-let difficultyLevel = document.getElementById("difficulty-level").value;
-
-// Set the timeTaken based on the selected difficulty level
-if (difficultyLevel === "easy") {
-timeTaken = 30;
-} else if (difficultyLevel === "medium") {
-timeTaken = 60;
-} else {
-timeTaken = 120;
-}
-
-// Create a new question and set the timeRemaining to timeTaken
-currentQuestion = createQuestion();
-timeRemaining = timeTaken;
-
-// Start the updateTime function every second using setInterval
-updateTimeInterval = setInterval(updateTime, 1000);
-
-// Display the current question on the screen
-displayQuestion();
+// add click event listener to the start game button
+document.getElementById("startGame").onclick = function() {
+    // if the game is being played, reload the page
+    if (p) {
+        location.reload();
+    } else {
+        // set the flag to true to indicate that the game is being played
+        p = true;
+        // initialize the score to 0
+        s = 0;
+        // hide the game over message
+        invis("gameover");
+        // update the current score in the HTML
+        document.getElementById("currentScore").innerHTML = s;
+        // show the countdown
+        viz("cDown");
+        // update the text of the start game button
+        document.getElementById("startGame").innerHTML = "Reset Game";
+        // set the time remaining to 60 seconds
+        tr = 60;
+        // update the time remaining in the HTML
+        document.getElementById("tVal").innerHTML = tr;
+        // start the game timer
+        gameTimer();
+        // generate the first question
+        questionGen();
+        // loop through the answer boxes
+        for (i = 1; i < 5; i++) {
+            // add a click event listener to each answer box
+            document.getElementById("box" + i).onclick = function() {
+                // if the game is being played
+                if (p) {
+                    // if the clicked answer is correct
+                    if (this.innerHTML == ca) {
+                        // increment the score and time remaining
+                        s++;
+                        tr +=.5;
+                        // update the current score in the HTML
+                        document.getElementById("currentScore").innerHTML = s;
+                        // hide the try again message
+                        invis("tryAgain");
+                        // show the correct answer message
+                        viz("isCorrect");
+                        // after 1 second, hide the correct answer message
+                        setTimeout(function() {
+                            invis("isCorrect");
+                        }, 1000);
+                        // generate a new question
+                        questionGen();
+                    } else {
+                        // decrement the time remaining
+                        tr -= 1.5;
+                        // hide the correct answer message
+                        invis("isCorrect");
+                        // show the try again message
+                        viz("tryAgain");
+                        // after 1 second, hide the try again message
+                        setTimeout(function() {
+                            invis("tryAgain");
+                        }, 1000);
+                    }
+                }
+            };
+        }
+    }
 };
 
 
-// createQuestion function is used to generate a math problem
-// based on the randomly selected operator (+, -, or *).
-createQuestion = () => {
-    // An array of possible operators
-    let operator = ["+", "-", "*"][Math.floor(Math.random() * 3)];
-  
-    // Variables to store the first and second numbers of the math problem
-    let firstNumber, secondNumber;
-  
-    // Check the operator and generate random numbers based on it
-    if (operator === "+") {
-      // For addition, the numbers can be between 0 and 9
-      firstNumber = Math.floor(Math.random() * 10);
-      secondNumber = Math.floor(Math.random() * 10);
-    } else if (operator === "-") {
-      // For subtraction, the first number can be between 0 and 99
-      // and the second number must be less than the first number
-      firstNumber = Math.floor(Math.random() * 100);
-      secondNumber = Math.floor(Math.random() * firstNumber);
-    } else {
-      // For multiplication, the numbers can be between 0 and 10
-      firstNumber = Math.floor(Math.random() * 11);
-      secondNumber = Math.floor(Math.random() * 11);
-    }
-  
-    // Return the generated math problem
-    return { operator, firstNumber, secondNumber };
-  };
-  
-  // displayQuestion function is used to display the current math problem
-  // on the HTML page by updating the innerHTML of the math-problem element.
-  displayQuestion = () => {
-    document.getElementById("math-problem").innerHTML =
-      // Concatenate the numbers and the operator to form the math problem
-      currentQuestion.firstNumber + currentQuestion.operator + currentQuestion.secondNumber;
-  };
-  
+/* 
+  gameTimer() function starts a timer for the game by setting a interval function.
+  The function decrements the value of tr every second, updating the HTML element
+  with id 'tVal' to reflect this change. If the value of tr reaches 0, the game is 
+  considered over and the 'gameover' display is set to visible, while other display 
+  elements 'cDown', 'isCorrect', and 'tryAgain' are set to invisible. The interval function 
+  is then cleared and the value of 'p' is set to false, the innerHTML of the element with 
+  id 'startGame' is set to 'Start Game' and the final score is displayed in the element 
+  with id 'finalscore'.
+*/
+function gameTimer() {
+    a = setInterval(function() {
+        tr--;
+        document.getElementById("tVal").innerHTML = tr;
+        if (tr == 0) {
+            viz("gameover");
+            invis("cDown");
+            invis("isCorrect");
+            invis("tryAgain");
+            clearInterval(a);
+            p = false;
+            document.getElementById("startGame").innerHTML = "Start Game";
+            document.getElementById("finalscore").innerHTML = s;
+        }
+    }, 1000);
+}
 
-// Check if the player's answer to the current math problem is correct
-checkAnswer = () => {
-    // Get the player's answer from the input field
-    let playerAnswer = document.getElementById("player-answer").value;
-    
-    // Calculate the correct answer to the current question
-    let correctAnswer = eval(
-      currentQuestion.firstNumber + currentQuestion.operator + currentQuestion.secondNumber
-    );
-    
-    // Compare the player's answer with the correct answer
-    if (playerAnswer == correctAnswer) {
-      // If the answer is correct, increase the score by 1
-      score++;
-      
-      // Increase the time taken by 0.667
-      timeTaken += 0.667;
-      
-      // Update the result display to show that the answer is correct
-      document.getElementById("result").innerHTML = "Correct!";
-    } else {
-      // If the answer is incorrect, decrease the total number of questions by 1
-      totalQuestions--;
-      
-      // Update the result display to show that the answer is incorrect
-      document.getElementById("result").innerHTML = "Incorrect.";
-    }
-    
-    // Check if the game is over
-    if (totalQuestions <= 0 || timeTaken <= 0) {
-      // If the game is over, call the endGame function
-      endGame();
-    } else {
-      // If the game is not over, update the score display
-      document.getElementById("score").innerHTML = "Score: " + score;
-      
-      // Update the total questions display
-      document.getElementById("total-questions").innerHTML = "Questions: " + totalQuestions;
-      
-      // Create a new question for the player
-      currentQuestion = createQuestion();
-      
-      // Display the new question to the player
-      displayQuestion();
-    }
-  };
-  
+/*
+  invis(id) function takes in the id of an HTML element as its argument and sets the 
+  display style of that element to 'none'.
+*/
+function invis(id) {
+    document.getElementById(id).style.display = "none";
+}
 
-// updateTime function updates the time remaining in the game
-// every second by decrementing the value of timeRemaining
-updateTime = () => {
-    // Decrement the value of timeRemaining by 1
-    timeRemaining--;
-    
-    // Update the HTML element with id "time-remaining" to show the updated time remaining
-    document.getElementById("time-remaining").innerHTML = "Time Remaining: " + timeRemaining;
-    
-    // If the time remaining reaches 0, end the game
-    if (timeRemaining <= 0) {
-      endGame();
+/*
+  viz(id) function takes in the id of an HTML element as its argument and sets the 
+  display style of that element to 'block'.
+*/
+function viz(id) {
+    document.getElementById(id).style.display = "block";
+}
+
+// generate a random question
+function questionGen() {
+    // generate a random number between 0 and 1
+    let op = Math.round(Math.random());
+
+    // if the number is 0, generate an addition problem
+    if (op === 0) {
+        // generate two random numbers between 0 and 99
+        let x = Math.round(99 * Math.random());
+        let y = Math.round(99 * Math.random());
+        // calculate the correct answer
+        ca = x + y;
+        // update the HTML elements with the numbers
+        document.getElementById("int1").innerHTML = x;
+        document.getElementById("int2").innerHTML = y;
+        document.getElementById("opper").innerHTML = "+";
+        // generate a random number between 1 and 4
+        cb = 1 + Math.round(3 * Math.random());
+        // update the corresponding HTML element with the correct answer
+        document.getElementById("box" + cb).innerHTML = ca;
+        // loop through the other HTML elements
+        for (i = 1; i < 5; i++) {
+            // if the current HTML element is not the one with the correct answer
+            if (i != cb) {
+                // generate a random number between 0 and 199
+                do {
+                    ic = Math.round(199 * Math.random());
+                    // update the current HTML element with the incorrect answer
+                    document.getElementById("box" + i).innerHTML = ic;
+                } while (ca == ic); // ensure that the incorrect answer is not the same as the correct answer
+            }
+        }
+    } else { // if the number is not 0, generate a multiplication problem
+        // generate two random numbers between 1 and 9
+        let x = 1 + Math.round(9 * Math.random());
+        let y = 1 + Math.round(9 * Math.random());
+        // calculate the correct answer
+        ca = x * y;
+        // update the HTML elements with the numbers
+        document.getElementById("int1").innerHTML = x;
+        document.getElementById("int2").innerHTML = y;
+        document.getElementById("opper").innerHTML = "x";
+        // generate a random number between 1 and 4
+        cb = 1 + Math.round(3 * Math.random());
+        // update the corresponding HTML element with the correct answer
+        document.getElementById("box" + cb).innerHTML = ca;
+        // loop through the other HTML elements
+        for (i = 1; i < 5; i++) {
+            // if the current HTML element is not the one with the correct answer
+            if (i != cb) {
+                // generate a random number between 1 and 81
+                do {
+                    ic = 1 + Math.round(9 * Math.random()) * (1 + Math.round(9 * Math.random()));
+                    // update the current HTML element with the incorrect answer
+                    document.getElementById("box" + i).innerHTML = ic;
+                } while (ca == ic); // ensure that the incorrect answer is not the same as the correct answer
+            }
+        }
     }
-  };
-  
-  // endGame function stops the time interval, updates the display to show the final score and 
-  // questions, and provides a restart button to the player.
-  endGame = () => {
-    // Stop the time interval set by setInterval function
-    clearInterval(updateTimeInterval);
-    
-    // Update the HTML element with id "math-problem" to show "Game Over!"
-    document.getElementById("math-problem").innerHTML = "Game Over!";
-    
-    // Clear the display of the result
-    document.getElementById("result").innerHTML = "";
-    
-    // Clear the display of the time remaining
-    document.getElementById("time-remaining").innerHTML = "";
-    
-    // Update the HTML element with id "score" to show the final score
-    document.getElementById("score").innerHTML = "Final Score: " + score;
-    
-    // Update the HTML element with id "total-questions" to show the final number of questions
-    document.getElementById("total-questions").innerHTML = "Final Questions: " + totalQuestions;
-    
-    // Add a restart button to the HTML element with id "restart"
-    document.getElementById("restart").innerHTML = "<button onclick='location.reload()'>Restart</button>";
-  };
+}
+

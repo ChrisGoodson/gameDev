@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <header>
+        <title>Rapid Math</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
+        <link rel="stylesheet" href="styles.css">
+    </header>
+
+    <body>
+        <div id="container">
+            <div id="score">
+                Score : <span id="currentScore">0</span>
+            </div>
+            <div id="isCorrect">Correct!</div>
+            <div id="tryAgain">Try again.</div>
+            <div id="question">
+                <span id="int1">0</span>
+                <span id="opper"> ? </span>
+                <span id="int2">0</span>
+            </div>
+            <div id="howTo">Correct answers add .5 sec, incorrect answers subtract 1.5 secs</div>
+            <div id="choices">
+                <div id="box1" class="box">1</div>
+                <div id="box2" class="box">2</div>
+                <div id="box3" class="box">3</div>
+                <div id="box4" class="box">4</div>
+            </div>
+            <div id="startGame">Start game</div>
+            <div id="cDown">Remaining time: <span id="tVal">60</span> Sec</div>
+            <div id="gameover">Game over.<br>Final Score: <span id="finalscore">0</span></div>
+        </div>
+        <script src="script.js"></script>
+    </body>
+</html>
