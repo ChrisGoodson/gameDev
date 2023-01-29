@@ -1,68 +1,51 @@
-    /* Set font size for entire body */
-    body {
+/* Set font size for entire body */
+body {
     font-size: 20px;
-    }
-    
-    /* Center text for difficulty selector */
-    #difficulty-selector {
+  }
+  
+  /* Center text for difficulty selector */
+  #difficulty-selector {
     text-align: center;
-    }
-    
-    /* Center text for game container, game over screen, and leaderboard */
-    #game-container, #game-over, #leaderboard {
+  }
+  
+  /* Center text for game container, game over screen, and leaderboard */
+  #game-container, #game-over, #leaderboard {
     text-align: center;
-    }
-    
-    /* Hide elements with 'hidden' class */
-    .hidden {
+  }
+  
+  /* Hide elements with 'hidden' class */
+  .hidden {
     display: none;
-    }
-    
-    /* Set font size for problem text */
-    #problem {
+  }
+  
+  /* Set font size for problem text */
+  #problem {
     font-size: 40px;
-    }
-    
-    /* Set font size for answer text */
-    #answer {
+  }
+  
+  /* Set font size for answer text */
+  #answer {
     font-size: 20px;
-    }
-    
-    /* Set font size for countdown timer, score, and health meter */
-    #countdown-timer, #score, #health-meter {
+  }
+  
+  /* Set font size for countdown timer, score, and health meter */
+  #countdown-timer, #score, #health-meter {
     font-size: 20px;
-    }
-    
-    /* Set font size for final score and final number of correct answers */
-    #final-score, #final-correct {
+  }
+  
+  /* Set font size for final score and final number of correct answers */
+  #final-score, #final-correct {
     font-size: 30px;
-    }
-    
-    /* Center table on screen */
-    table {
+  }
+  
+  /* Center table on screen */
+  table {
     margin: auto;
-    }
-    
-    /* Add padding to table cells */
-    th, td {
+  }
+  
+  /* Add padding to table cells */
+  th, td {
     padding: 10px;
-    }
-
-    /* Add blue color and pulse animation to the powerup element */
-    #powerup {
-      color: blue;
-      animation: pulse 1s infinite;
-    }
-
-    /* Keyframes for the pulse animation */
-    @keyframes pulse {
-        0% {
-            transform: scale(1);
-        }
-        50% {
-            transform: scale(1.2);
-        }
-        100% {
-            transform: scale(1);
-        }
-    }
+  }
+  
+  
