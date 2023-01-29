@@ -1,63 +1,68 @@
-/*Overall styling for the game*/
-.game {
-    margin: 0 auto;
-    width: 80%;
-    font-family: Arial, sans-serif;
+    /* Set font size for entire body */
+    body {
+    font-size: 20px;
+    }
+    
+    /* Center text for difficulty selector */
+    #difficulty-selector {
     text-align: center;
-}
+    }
+    
+    /* Center text for game container, game over screen, and leaderboard */
+    #game-container, #game-over, #leaderboard {
+    text-align: center;
+    }
+    
+    /* Hide elements with 'hidden' class */
+    .hidden {
+    display: none;
+    }
+    
+    /* Set font size for problem text */
+    #problem {
+    font-size: 40px;
+    }
+    
+    /* Set font size for answer text */
+    #answer {
+    font-size: 20px;
+    }
+    
+    /* Set font size for countdown timer, score, and health meter */
+    #countdown-timer, #score, #health-meter {
+    font-size: 20px;
+    }
+    
+    /* Set font size for final score and final number of correct answers */
+    #final-score, #final-correct {
+    font-size: 30px;
+    }
+    
+    /* Center table on screen */
+    table {
+    margin: auto;
+    }
+    
+    /* Add padding to table cells */
+    th, td {
+    padding: 10px;
+    }
 
-/*Styling for the countdown clock*/
-.clock {
-    font-size: 36px;
-    font-weight: bold;
-    color: black;
-    margin-bottom: 20px;
-}
+    /* Add blue color and pulse animation to the powerup element */
+    #powerup {
+      color: blue;
+      animation: pulse 1s infinite;
+    }
 
-/*Styling for the math problem*/
-.problem {
-    font-size: 24px;
-    color: black;
-    margin-bottom: 20px;
-}
-
-/*Styling for the answer input field*/
-input[type="text"] {
-    font-size: 24px;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
-    border: 2px solid black;
-}
-
-/*Styling for the submit button*/
-input[type="submit"] {
-    font-size: 24px;
-    background-color: black;
-    color: white;
-    padding: 12px 20px;
-    margin: 8px 0;
-    border: none;
-    cursor: pointer;
-}
-
-/*Styling for the health meter*/
-.health-meter {
-    font-size: 18px;
-    color: black;
-    margin-bottom: 20px;
-}
-
-/*Styling for the power-ups*/
-.power-up {
-    font-size: 18px;
-    color: blue;
-    margin-bottom: 20px;
-}
-
-/*Styling for the leaderboard*/
-.leaderboard {
-    font-size: 18px;
-    color: black;
-    margin-bottom: 20px;
-}
+    /* Keyframes for the pulse animation */
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+        }
+        50% {
+            transform: scale(1.2);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }

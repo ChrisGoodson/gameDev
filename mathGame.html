@@ -27,14 +27,15 @@
       <form>
         <input type="text" id="answer" name="answer">
         <button type="submit">Submit</button>
+        <button id="skip" type="button">Skip</button>
       </form>
-      <div id="countdown-timer">
+      <div id="countdown-timer" aria-label="Countdown Timer" aria-live="polite">
         <!-- Countdown timer will be inserted here -->
       </div>
-      <div id="score">
+      <div id="score" aria-label="Score">
         <!-- Score will be inserted here -->
       </div>
-      <div id="health-meter">
+      <div id="health-meter" aria-label="Health Meter">
         <!-- Health meter will be inserted here -->
       </div>
     </div>
@@ -43,6 +44,21 @@
       <p>Your score: <span id="final-score"></span></p>
       <p>Number of questions answered correctly: <span id="final-correct"></span></p>
       <button id="play-again">Play Again</button>
+    </div>
+    <div id="leaderboard" class="hidden">
+        <h2> Leaderboard</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Username</th>
+              <th>Score</th>
+            </tr>
+          </thead>
+          <tbody id="leaderboard-data">
+            <!-- Leaderboard data will be inserted here -->
+          </tbody>
+        </table>
     </div>
   </body>
 </html>
