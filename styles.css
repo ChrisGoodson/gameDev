@@ -1,0 +1,63 @@
+/*Overall styling for the game*/
+.game {
+    margin: 0 auto;
+    width: 80%;
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+
+/*Styling for the countdown clock*/
+.clock {
+    font-size: 36px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 20px;
+}
+
+/*Styling for the math problem*/
+.problem {
+    font-size: 24px;
+    color: black;
+    margin-bottom: 20px;
+}
+
+/*Styling for the answer input field*/
+input[type="text"] {
+    font-size: 24px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 2px solid black;
+}
+
+/*Styling for the submit button*/
+input[type="submit"] {
+    font-size: 24px;
+    background-color: black;
+    color: white;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+}
+
+/*Styling for the health meter*/
+.health-meter {
+    font-size: 18px;
+    color: black;
+    margin-bottom: 20px;
+}
+
+/*Styling for the power-ups*/
+.power-up {
+    font-size: 18px;
+    color: blue;
+    margin-bottom: 20px;
+}
+
+/*Styling for the leaderboard*/
+.leaderboard {
+    font-size: 18px;
+    color: black;
+    margin-bottom: 20px;
+}
