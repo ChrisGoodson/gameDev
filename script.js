@@ -50,8 +50,8 @@ function createQuestion() {
   return { operator: operator, firstNumber: firstNumber, secondNumber: secondNumber };
 }
 
-// Declare the `displayProblem` function to display the math problem
-let displayProblem = (question) => {
+// Declare the `displayQuestion` function to display the math problem
+let displayQuestion = (question) => {
     document.getElementById("math-problem").innerHTML = question.firstNumber + question.operator + question.secondNumber;
   };
   
@@ -83,7 +83,7 @@ let displayProblem = (question) => {
     }
   
     // Display the new question
-    displayProblem(currentQuestion);
+    displayQuestion(currentQuestion);
   };
   
   // Declare the `updateTime` function to update the time remaining
